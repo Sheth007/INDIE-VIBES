@@ -1,0 +1,58 @@
+body{
+    background-color: black;
+}
+/* nav bar */
+ul li{
+    display: flex;
+    padding: 1%;
+    margin-top: 1%;
+}
+
+li{
+    float: Right;
+    display: block;
+    background-color: black;
+    color: white;
+    font-size: large;
+}
+img{
+    width: 100px;
+    border-radius: 50%;
+}
+/* nav bar */
+
+/* inside logo */
+.pic{
+    margin: 100px;
+    height: 310px;
+    width: auto;
+}
+/* inside logo end*/
+.text{
+    margin-left: 500px;
+    margin-top: -440px;
+}
+.p{
+    color: white;
+    font-size: 40px;
+}
+.a{
+    color: white;
+    font-size: 20px;
+}
+.t{
+    margin: 50px;
+    color: white;
+}
+@media (max-width: 480px) {
+    .card {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
