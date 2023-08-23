@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 02:07 PM
+-- Generation Time: Aug 23, 2023 at 07:00 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,18 +46,10 @@ INSERT INTO `adminlog` (`id`, `pass`) VALUES
 --
 
 CREATE TABLE `album` (
-  `title` varchar(255) DEFAULT NULL,
-  `artist` varchar(255) DEFAULT NULL,
-  `year` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`title`, `artist`, `year`) VALUES
-('shubh', 'shubh', '2021'),
-('ap dhillion', 'ap dhillion', '2021\r\n');
+  `artist` varchar(255) NOT NULL,
+  `album_name` varchar(255) NOT NULL,
+  `year` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -76,19 +68,36 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`name`, `email`, `feedback`) VALUES
-('UDAY', 'SHTEH', 'hello'),
-('rishi', 'rishi@rishi.com', 'this is nice website'),
-('maulik', 'maulik@virani.com', 'i like this website');
+('admin', 'admin', 'this is admin testing');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uploaded_files`
+-- Table structure for table `music`
 --
 
-CREATE TABLE `uploaded_files` (
-  `fileToUpload` varchar(255) NOT NULL
+CREATE TABLE `music` (
+  `id` int(11) NOT NULL,
+  `artist_name` varchar(255) NOT NULL,
+  `music_name` varchar(255) NOT NULL,
+  `music_path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `music`
+--
+
+INSERT INTO `music` (`id`, `artist_name`, `music_name`, `music_path`) VALUES
+(2, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(3, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(4, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(5, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(6, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(7, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(8, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(9, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(10, 'abc', 'abc\'s music', '../admin/upload1.mp3'),
+(11, 'abc', 'abc\'s music', '../admin/upload1.mp3');
 
 -- --------------------------------------------------------
 
@@ -109,7 +118,28 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`email`, `pass`, `repass`) VALUES
 ('shethuday8@gmail.com', 'sheth', 'sheth'),
 ('shethuday505@gmail.com', 'ums', 'ums'),
-('admin', 'admin', 'admin');
+('admin', 'admin', 'admin'),
+('ajdaksg@gmail.com', 'abc', 'abc');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `music`
+--
+ALTER TABLE `music`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `music`
+--
+ALTER TABLE `music`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
