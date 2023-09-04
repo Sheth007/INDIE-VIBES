@@ -10,27 +10,48 @@ if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $artist_name = $_POST["artist_name"];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
+    $id = $_POST["id"];
     $music_name = $_POST["music_name"];
-    
-    $updateQuery = "UPDATE music SET music_name='$music_name' WHERE artist_name='$artist_name'";
-    if ($mysqli->query($updateQuery)) {
+    $time = $_POST["time"];
+
+    // Use prepared statement to update the music record based on ID
+    $updateQuery = "UPDATE music SET music_name = ?, time = ? WHERE id = ?";
+    $stmt = $mysqli->prepare($updateQuery);
+    $stmt->bind_param("ssi", $music_name, $time, $id); // "ssi" represents string, string, integer
+    if ($stmt->execute()) {
         header("Location: uploadmusic.php"); // Redirect to uploadmusic after updating
         exit();
     } else {
-        echo "Error updating record: " . $mysqli->error;
+        echo "Error updating record: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 
-if (isset($_GET["artist_name"])) {
-    $artist_name = $_GET["artist_name"];
-    $selectQuery = "SELECT * FROM music WHERE artist_name='$artist_name'";
-    $result = $mysqli->query($selectQuery);
-    $row = $result->fetch_assoc();
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+
+    // Use prepared statement to select the music record based on ID
+    $selectQuery = "SELECT * FROM music WHERE id = ?";
+    $stmt = $mysqli->prepare($selectQuery);
+    $stmt->bind_param("i", $id); // "i" represents integer type
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+    } else {
+        echo "Invalid music ID.";
+        exit();
+    }
+
+    $stmt->close();
 } else {
-    echo "Invalid artist name.";
+    echo "No music ID provided.";
+    exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -42,13 +63,18 @@ if (isset($_GET["artist_name"])) {
 <body>
     <h1>Edit Music Details</h1>
     <form method="post">
-        <label for="music_name">Artist Name:</label>
-        <input type="text" name="artist_name">
+        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+        <label for="music_name">Music Name:</label>
+        <input type="text" name="music_name" value="<?php echo $row['music_name']; ?>">
         <br>
-        <input type="submit" value="Update">
+        <label for="time">Time:</label>
+        <input type="text" name="time" value="<?php echo $row['time']; ?>">
+        <br>
+        <input type="submit" value="Update" name="update">
     </form>
 </body>
 </html>
+
 <?php
 $mysqli->close();
 ?>

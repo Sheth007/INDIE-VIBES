@@ -1,168 +1,136 @@
 <?php
-$servername = 'localhost';
-$username = 'root';
+
+$user = 'root';
 $password = '';
 $database = 'iv';
-// Create connection
-$mysqli = new mysqli($servername, $username, $password, $database);
+$servername='localhost';
+$mysqli = new mysqli($servername, $user, $password, $database);
 
-// Check connection
 if ($mysqli->connect_error) {
-    die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+	die('Connect Error (' .
+	$mysqli->connect_errno . ') '.
+	$mysqli->connect_error);
+}
+// Check if the delete button is clicked
+if (isset($_POST['delete'])) {
+    $music_name = $_POST['music_name'];
+    $sqlDelete = "DELETE FROM music WHERE music_name = '$music_name'";
+    $resultDelete = $mysqli->query($sqlDelete);
 }
 
-// File upload handling
-if (isset($_POST['upload'])) {
-    $targetDirectory = '../admin/upload/'; // Change this directory to your desired location
-    $artistName = $_POST['artist_name'];
-    $musicName = $_POST['music_name'];
-    $uploadedFileName = $_FILES['fileToUpload']['name'];
-    $targetFile = $targetDirectory . basename($uploadedFileName);
-    $uploadOk = 1;
-    $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-
-    // Allow only specific file formats (adjust as needed)
-    $allowedFileTypes = array('mp3');
-    if (!in_array($fileType, $allowedFileTypes)) {
-        echo "Only MP3 files are allowed.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk === 0) {
-        echo "File was not uploaded.";
-    } else {
-        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $targetFile)) {
-            // Use prepared statement
-            $insertQuery = "INSERT INTO music (artist_name, music_name, music_path) VALUES (?, ?, ?)";
-            $stmt = $mysqli->prepare($insertQuery);
-            $stmt->bind_param("sss", $artistName, $musicName, $targetFile);
-            
-            if ($stmt->execute()) {
-                echo "The file " . htmlspecialchars(basename($uploadedFileName)) . " has been uploaded and inserted into the database.";
-            } else {
-                echo "An error occurred while inserting into the database: " . $stmt->error;
-            }
-            
-            $stmt->close();
-        } else {
-            echo "An error occurred while uploading your file.";
-        }
-    }
-}
+$sql = " SELECT * FROM music";
+$result = $mysqli->query($sql);
+	
+$mysqli->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Music File Upload</title>
+	<meta charset="UTF-8">
+	<title>Indie Vibes muisc Details</title>
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
 </head>
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-        }
-        form, table {
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: inline-block;
-            width: 120px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="file"] {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        a {
-            color: #333;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f5f5f5;
+		}
+		h1 {
+			text-align: center;
+			color: #006600;
+			font-size: 24px;
+			margin-top: 20px;
+		}
+		table {
+			width: 80%;
+			margin: 20px auto;
+			border-collapse: collapse;
+			background-color: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+		th, td {
+			padding: 10px;
+			text-align: center;
+		}
+		th {
+			background-color: #006600;
+			color: white;
+		}
+		td {
+			border-bottom: 1px solid #ddd;
+		}
+		tr:hover {
+			background-color: #f2f2f2;
+		}
+		button {
+			background-color: #cc0000;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #990000;
+		}
+		.add-user-button {
+			text-align: center;
+			margin-top: 10px;
+		}
+		.add-user-button input[type="submit"] {
+			background-color: #006600;
+			color: white;
+			border: none;
+			padding: 5px 10px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+	</style>
 <body>
-    <h1>Music File Upload</h1>
-    <!-- Music File Upload Form -->
-    <form method="post" enctype="multipart/form-data">
-        <label for="artist_name">Artist Name:</label>
-        <input type="text" name="artist_name" id="artist_name">
-        <br>
-        <label for="music_name">Music Name:</label>
-        <input type="text" name="music_name" id="music_name">
-        <br>
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <br>
-        <input type="submit" value="Upload Music" name="upload">
-    </form>
-
-    <h1>Uploaded Music Details</h1>
-    <table border="1">
-        <tr>
-            <th>Artist Name</th>
-            <th>Music Name</th>
-            <th>Music Path</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        <?php
-        $selectQuery = "SELECT * FROM music";
-        $result = $mysqli->query($selectQuery);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row["artist_name"] . "</td>";
-                echo "<td>" . $row["music_name"] . "</td>";
-                echo "<td><a href='" . $row["music_path"] . "' target='_blank'>Listen</a></td>";
-                echo "<td><a href='edit_music.php?id=" . $row["music_name"] . "'>Edit</a></td>";
-                echo "<td><a href='delete_music.php?id=" . $row["music_name"] . "' onclick='return confirm(\"Are you sure you want to delete this music?\")'>Delete</a></td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='3'>No uploaded music found.</td></tr>";
-        }
-
-        $mysqli->close();
-        ?>
-    </table>
+	<section>
+		<h1>Indie Vibes</h1>
+		
+		<!-- TABLE CONSTRUCTION -->
+		<table>
+			<tr>
+				<th>id</th>
+				<th>artist name</th>
+				<th>music name</th>
+                <th>time</th>
+				<th><a href="../admin/addmusic.php"><input type="Submit" value="Add music"></a></th>
+			</tr>
+			<!-- PHP CODE TO FETCH DATA FROM ROWS -->
+			<?php
+				// LOOP TILL END OF DATA
+				while($rows=$result->fetch_assoc())
+				{
+			?>
+			<tr>
+				<!-- FETCHING DATA FROM EACH
+					ROW OF EVERY COLUMN -->
+				<td><?php echo $rows['id'];?></td>
+				<td><?php echo $rows['artist_name'];?></td>
+                <td><?php echo $rows['music_name'];?></td>
+				<td><?php echo $rows['time'];?></td>
+				<td>
+                    <form method="post">
+                    	<input type="hidden" name="music_name" value="<?php echo $rows['music_name']; ?>">
+                        	<button type="submit" name="delete">Delete</button>
+					</form>
+                </td>
+				<td>
+    				<a href="../admin/edit_music.php?id=<?php echo $rows['id']; ?>">Edit</a>
+				</td>
+			</tr>
+			<?php
+				}
+			?>
+		</table>
+		&nbsp;&nbsp;&nbsp;&nbsp;
 </body>
+
 </html>
