@@ -2,7 +2,7 @@
     if(isset($_POST['submit']))
     {
         $conn = mysqli_connect("localhost","root","","iv");
-        $sql = "insert into users values ('$_POST[email]', '$_POST[pass]')";
+        $sql = "INSERT INTO users VALUES('$_POST[email]', '$_POST[pass]', '$_POST[repass]')";
         if(mysqli_query($conn, $sql)) 
         {
             echo "Registered successfully";
@@ -27,9 +27,14 @@
 <div id="addUserForm" >
     <form method="post">
     	<label for="newEmail">Email:</label>
-    	<input type="email" name="email" id="newEmail" required><br>
+    	<input type="text" name="email" required><br>
+
     	<label for="newPassword">Password:</label>
-    	<input type="password" name="pass" id="newPassword" required><br>
+    	<input type="text" name="pass" required><br>
+
+        <label for="newPassword">Re-Password:</label>
+    	<input type="text" name="repass" required><br>
+
     	<input type="submit" name="submit" value="done">
     </form>
 </div>
