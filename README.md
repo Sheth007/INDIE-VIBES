@@ -1,7 +1,7 @@
 # INDIE-VIBES
 Here you will find a complete project on music 🎶 website,<br>
 
-Registration Page:
+<center>**Registration Page:**</center>
 ![iv regi](https://github.com/Sheth007/INDIE-VIBES/assets/113230518/47f951db-6272-4a05-94c2-58687b38c3bd)
 
 ![iv login](https://github.com/Sheth007/INDIE-VIBES/assets/113230518/c93ba9ff-d91b-44d6-a8ec-6951dfca027c)
