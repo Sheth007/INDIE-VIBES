@@ -1,5 +1,7 @@
 # INDIE-VIBES
-Here you will find a complete project on music 🎶 website,<br>
+This is complete project on music streaming websites like spotify.
+User can register / login, they can see all listed artist, user can play any specifi artist. or they can play any random generated playlist.
+Also they can perform all basic activities such as donwloading, changing, volume up / down and etc..
 
 ➡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  **Registration Page:**
 ![iv regi](https://github.com/Sheth007/INDIE-VIBES/assets/113230518/47f951db-6272-4a05-94c2-58687b38c3bd)
