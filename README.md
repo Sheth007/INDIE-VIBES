@@ -1,6 +1,7 @@
 # INDIE-VIBES
 This is complete project on music streaming websites like spotify.
 User can register / login, they can see all listed artist, user can play any specifi artist. or they can play any random generated playlist.
+Also They can contact us, give feedbacks via filling a form, and 
 Also they can perform all basic activities such as donwloading, changing, volume up / down and etc..
 
 ➡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  **Registration Page:**
