@@ -2,8 +2,10 @@
 This is complete project on music streaming websites like spotify.
 User can register / login, they can see all listed artist, user can play any specifi artist. or they can play any random generated playlist.
 Also They can contact us, give feedbacks via filling a form, and 
-Also they can perform all basic activities such as donwloading, changing songs, volume up / down and etc..
+Also they can perform all basic activities such as donwloading, changing songs, volume up / down and etc..<br><br>
 
+For the Front-End I use Html, Css, Js.<br>
+For the Back-End I Use Php, Mysql, Js.
 ➡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  **Registration Page:**
 ![iv regi](https://github.com/Sheth007/INDIE-VIBES/assets/113230518/47f951db-6272-4a05-94c2-58687b38c3bd)
 
