@@ -74,9 +74,7 @@ INDIE-VIBES/
 
 ---
 
-## 🗄️ Database Design (Suggested)
-
-You might have SQL tables similar to:
+## 🗄️ Database Design
 
 - `users` — user credentials and profile data  
 - `artists` — artist metadata (name, image, description, etc.)  
