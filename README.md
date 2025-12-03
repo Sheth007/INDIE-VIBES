@@ -38,7 +38,7 @@ Users can register/login, browse artists, play songs, generate random playlists,
 
 ## 📁 Project Structure
 
-```bash
+```
 INDIE-VIBES/
 │
 ├── Diagrams/
@@ -70,6 +70,8 @@ INDIE-VIBES/
 │
 └── iv.sql
 └── README.md
+```
+
 ---
 
 ## 🗄️ Database Design (Suggested)
@@ -87,12 +89,14 @@ You might have SQL tables similar to:
 
 1. **Clone the repository:**
 
-   ```bash
+   ```
    git clone https://github.com/Sheth007/INDIE-VIBES.git
+   ```
 
 2. **Move the project into your server directory:**
-    ```bash
+    ```
     htdocs/INDIE-VIBES/
+    ```
 
 3. **Import the database:**
     * Open phpMyAdmin (or any MySQL GUI)
@@ -100,8 +104,9 @@ You might have SQL tables similar to:
     * Import the database file
 
 4. **Run the app:**
-    ```bash
+    ```
     http://localhost/INDIE-VIBES/
+    ```
 
 # 🖼️ Screenshots
 
